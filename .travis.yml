@@ -40,3 +40,6 @@ matrix:
       gemfile: gemfiles/rails_master.gemfile
   fast_finish: true
 cache: bundler
+
+notifications:
+  slack: shyftplanteam:ytcBo8O4FsF6i11yzoCmfvTU
