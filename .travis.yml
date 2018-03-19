@@ -21,8 +21,10 @@ env:
   RUBY_GC_HEAP_FREE_SLOTS: 200000
 matrix:
   allow_failures:
-    - rvm: ruby-head
-    - gemfile: gemfiles/rails_master.gemfile
+    - rvm: 2.2.9
+      gemfile: gemfiles/rails_master.gemfile
+    - rvm: 2.3.6
+      gemfile: gemfiles/rails_master.gemfile
   exclude:
     - rvm: 2.1.9
       gemfile: gemfiles/rails_5_0.gemfile
