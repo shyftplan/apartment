@@ -24,12 +24,13 @@ module Apartment
     #
     def adapter
       Thread.current[:apartment_adapter] ||= begin
-        adapter_method = "#{config[:adapter]}_adapter"
+        adapter = config[:adapter] == 'seamless_database_pool' ? config[:pool_adapter] : config[:adapter]
+        adapter_method = "#{adapter}_adapter"
 
         if defined?(JRUBY_VERSION)
-          if config[:adapter] =~ /mysql/
+          if adapter =~ /mysql/
             adapter_method = 'jdbc_mysql_adapter'
-          elsif config[:adapter] =~ /postgresql/
+          elsif adapter =~ /postgresql/
             adapter_method = 'jdbc_postgresql_adapter'
           end
         end
@@ -41,7 +42,7 @@ module Apartment
         end
 
         unless respond_to?(adapter_method)
-          raise AdapterNotFound, "database configuration specifies nonexistent #{config[:adapter]} adapter"
+          raise AdapterNotFound, "database configuration specifies nonexistent #{adapter} adapter"
         end
 
         send(adapter_method, config)
